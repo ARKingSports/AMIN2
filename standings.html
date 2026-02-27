@@ -1,50 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="ku">
 <head>
-<title>ڕێکخستنی تیمەکان</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لیگێ ئامین بابیر</title>
+
 <style>
-body{background:black;color:white;font-family:Arial;}
-table{width:100%;border-collapse:collapse;text-align:center;}
-th,td{border:1px solid white;padding:8px;}
-th{background:gold;color:black;}
-input{width:50px;text-align:center;}
+  body { margin:0; padding:0; font-family:Arial; background:#111; color:white; }
+  header { text-align:center; padding:15px; background:#222; }
+  header h2 { font-size:1.4rem; color:gold; margin:0; }
+
+  .table-container { overflow-x:auto; margin:10px; }
+
+  table { width:100%; border-collapse: collapse; min-width:400px; }
+
+  th, td { border:1px solid white; padding:8px; text-align:center; font-size:1rem; }
+
+  th { background: gold; color:black; }
+
+  tr:hover { background: rgba(255,215,0,0.2); }
+
+  td.team-name { display:flex; flex-direction: column; align-items: center; gap:6px; }
+
+  td.team-name img {
+    height:50px; width:50px;
+    border-radius:50%;
+    border:2px solid gold;
+    opacity:0;
+    transition: opacity 1s ease-in;
+  }
+
+  td.team-name img.loaded { opacity:1; }
+
+  td.team-name span {
+    font-size:1.1rem;
+    color:gold;
+    font-weight:bold;
+  }
+
+  /* المركز الاول */
+  tr.first-place {
+    background: rgba(255,215,0,0.25);
+    font-weight:bold;
+  }
+
+  @media(max-width:600px){
+    th, td { font-size:0.9rem; padding:6px; }
+    td.team-name img { height:40px; width:40px; }
+    td.team-name span { font-size:1rem; }
+  }
 </style>
 </head>
+
 <body>
-<h2 style="text-align:center;">لیگێ ئامین بابیر – ڕێکخستنی تیمەکان</h2>
-<table id="leagueTable">
-<tr>
-<th>تیم</th><th>یاری کراوە</th><th>سەرکەوتوو</th><th>هاوپەیمان</th><th>شکست</th><th>ئامانجی گۆڵ</th><th>گۆڵی لەدەرەوە</th><th>خاڵ</th>
-</tr>
-</table>
+
+<header>
+  <h2>لیگێ ئامین بابیر</h2>
+</header>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>تیم</th>
+        <th>بردنەوە</th>
+        <th>یەکسان</th>
+        <th>دراو</th>
+        <th>خاڵ</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamA.png" class="lazy"><span>تیم A</span></td>
+        <td>2</td><td>1</td><td>0</td><td>7</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamB.png" class="lazy"><span>تیم B</span></td>
+        <td>1</td><td>1</td><td>1</td><td>99</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamC.png" class="lazy"><span>تیم C</span></td>
+        <td>0</td><td>1</td><td>2</td><td>1</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamD.png" class="lazy"><span>تیم D</span></td>
+        <td>3</td><td>0</td><td>0</td><td>9</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamE.png" class="lazy"><span>تیم E</span></td>
+        <td>1</td><td>2</td><td>0</td><td>5</td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="team-name"><img data-src="teamF.png" class="lazy"><span>تیم F</span></td>
+        <td>0</td><td>0</td><td>3</td><td>0</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
 <script>
-const defaultTeams=[
-{name:"تیم A",played:3,won:2,draw:1,lost:0,gf:5,ga:2,points:7},
-{name:"تیم B",played:3,won:1,draw:1,lost:1,gf:4,ga:4,points:4},
-{name:"تیم C",played:3,won:0,draw:1,lost:2,gf:2,ga:5,points:1}
-];
-let teams=JSON.parse(localStorage.getItem("teams"))||defaultTeams;
-function renderTable(){
-const table=document.getElementById("leagueTable");
-table.innerHTML='<tr><th>تیم</th><th>یاری کراوە</th><th>سەرکەوتوو</th><th>هاوپەیمان</th><th>شکست</th><th>ئامانجی گۆڵ</th><th>گۆڵی لەدەرەوە</th><th>خاڵ</th></tr>';
-teams.forEach((team,index)=>{
-let row=table.insertRow();
-row.innerHTML=`<td>${team.name}</td>
-<td><input type="number" value="${team.played}" onchange="updateTeam(${index},'played',this.value)"></td>
-<td><input type="number" value="${team.won}" onchange="updateTeam(${index},'won',this.value)"></td>
-<td><input type="number" value="${team.draw}" onchange="updateTeam(${index},'draw',this.value)"></td>
-<td><input type="number" value="${team.lost}" onchange="updateTeam(${index},'lost',this.value)"></td>
-<td><input type="number" value="${team.gf}" onchange="updateTeam(${index},'gf',this.value)"></td>
-<td><input type="number" value="${team.ga}" onchange="updateTeam(${index},'ga',this.value)"></td>
-<td><input type="number" value="${team.points}" onchange="updateTeam(${index},'points',this.value)"></td>`;
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Lazy Load للصور
+  document.querySelectorAll('img.lazy').forEach(img=>{
+    img.src = img.getAttribute('data-src');
+    img.onload = () => img.classList.add('loaded');
+  });
+
+  const tbody = document.querySelector("tbody");
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+
+  // ترتيب حسب النقاط
+  rows.sort((a, b) => {
+    const pointsA = parseInt(a.children[5].textContent);
+    const pointsB = parseInt(b.children[5].textContent);
+    return pointsB - pointsA;
+  });
+
+  rows.forEach((row, index) => {
+    tbody.appendChild(row);
+
+    // إضافة رقم الترتيب
+    row.children[0].textContent = index + 1;
+
+    // تمييز المركز الاول
+    if(index === 0){
+      row.classList.add("first-place");
+    }
+  });
+
 });
-}
-function updateTeam(index,field,value){
-teams[index][field]=Number(value);
-localStorage.setItem("teams",JSON.stringify(teams));
-renderTable();
-}
-renderTable();
 </script>
+
 </body>
 </html>
