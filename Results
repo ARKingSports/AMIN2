@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ئەنجامەکان</title>
+  <style>
+    body {background:black; color:white; font-family:Arial;}
+    table {width:100%; border-collapse:collapse; text-align:center;}
+    th, td {border:1px solid white; padding:8px;}
+    th {background:gold; color:black;}
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">ئەنجامەکان</h2>
+  <table>
+    <tr>
+      <th>یاری</th>
+      <th>تیم ١</th>
+      <th>گۆڵ</th>
+      <th>تیم ٢</th>
+      <th>گۆڵ</th>
+    </tr>
+    <tr><td>١</td><td>تیم A</td><td>2</td><td>تیم B</td><td>1</td></tr>
+    <tr><td>٢</td><td>تیم B</td><td>3</td><td>تیم C</td><td>3</td></tr>
+    <tr><td>٣</td><td>تیم A</td><td>1</td><td>تیم C</td><td>0</td></tr>
+  </table>
+</body>
+</html>
