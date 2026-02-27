@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ئەنجامەکان</title>
+<style>
+body{background:black;color:white;font-family:Arial;}
+table{width:100%;border-collapse:collapse;text-align:center;}
+th,td{border:1px solid white;padding:8px;}
+th{background:gold;color:black;}
+input{width:50px;text-align:center;}
+</style>
+</head>
+<body>
+<h2 style="text-align:center;">ئەنجامەکان</h2>
+<table id="resultsTable">
+<tr><th>یاری</th><th>تیم ١</th><th>گۆڵ</th><th>تیم ٢</th><th>گۆڵ</th></tr>
+</table>
+<script>
+const defaultResults=[
+{match:1,team1:"تیم A",score1:2,team2:"تیم B",score2:1},
+{match:2,team1:"تیم B",score1:3,team2:"تیم C",score2:3},
+{match:3,team1:"تیم A",score1:1,team2:"تیم C",score2:0}
+];
+let results=JSON.parse(localStorage.getItem("results"))||defaultResults;
+function renderResults(){
+const table=document.getElementById("resultsTable");
+table.innerHTML='<tr><th>یاری</th><th>تیم ١</th><th>گۆڵ</th><th>تیم ٢</th><th>گۆڵ</th></tr>';
+results.forEach((r,index)=>{
+let row=table.insertRow();
+row.innerHTML=`<td>${r.match}</td>
+<td><input type="text" value="${r.team1}" onchange="updateResult(${index},'team1',this.value)"></td>
+<td><input type="number" value="${r.score1}" onchange="updateResult(${index},'score1',this.value)"></td>
+<td><input type="text" value="${r.team2}" onchange="updateResult(${index},'team2',this.value)"></td>
+<td><input type="number" value="${r.score2}" onchange="updateResult(${index},'score2',this.value)"></td>`;
+});
+}
+function updateResult(index,field,value){
+results[index][field]=field.includes('score')?Number(value):value;
+localStorage.setItem("results",JSON.stringify(results));
+renderResults();
+}
+renderResults();
+</script>
+</body>
+</html>
